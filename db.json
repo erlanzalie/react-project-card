@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "title": "das",
+      "description": "das",
+      "price": "das",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3Wjd-Cak78mooEfHTx64D7xhFtgBMZRFiiQ&usqp=CAU",
+      "id": 1
+    }
+  ]
+}
