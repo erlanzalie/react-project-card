@@ -7,20 +7,23 @@ import {
   Typography,
 } from "@mui/material";
 import { Container } from "@mui/system";
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { productContext } from "../../contexts/productContext";
+import Loader from "../Loader/Loader";
 
 // title, description, price, image
-const AddProductForm = () => {
-  const { createProduct } = useContext(productContext);
+const EditProductForm = () => {
+  const { getOneProduct, oneProduct, updateProduct } =
+    useContext(productContext);
+  const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
   function handleValues() {
-    let newProduct = {
+    let editedProduct = {
       title,
       description,
       price,
@@ -35,10 +38,21 @@ const AddProductForm = () => {
       alert("Заполните поля!");
       return;
     }
-    createProduct(newProduct);
+    updateProduct(id, editedProduct);
     navigate("/products");
   }
-  return (
+  useEffect(() => {
+    getOneProduct(id);
+  }, []);
+  useEffect(() => {
+    if (oneProduct) {
+      setTitle(oneProduct.title);
+      setPrice(oneProduct.price);
+      setImage(oneProduct.image);
+      setDescription(oneProduct.description);
+    }
+  }, [oneProduct]);
+  return oneProduct ? (
     <Container maxWidth="sm">
       <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
@@ -47,7 +61,7 @@ const AddProductForm = () => {
         <Link underline="hover" color="inherit" href="/products">
           Products
         </Link>
-        <Typography color="text.primary">Add</Typography>
+        <Typography color="text.primary">Edit</Typography>
       </Breadcrumbs>
       <Box
         display={"flex"}
@@ -56,7 +70,7 @@ const AddProductForm = () => {
         textAlign={"center"}
       >
         <Typography variant="h4" component="h2">
-          Add New Product
+          Edit Product
         </Typography>
         <TextField
           value={title}
@@ -96,11 +110,13 @@ const AddProductForm = () => {
           color="success"
           style={{ margin: "10px" }}
         >
-          Add Product
+          Save Product
         </Button>
       </Box>
     </Container>
+  ) : (
+    <Loader />
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;
