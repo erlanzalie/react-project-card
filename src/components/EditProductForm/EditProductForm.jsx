@@ -29,12 +29,7 @@ const EditProductForm = () => {
       price,
       image,
     };
-    if (
-      !title.trim() ||
-      !description.trim() ||
-      !price.trim() ||
-      !image.trim()
-    ) {
+    if (!title.trim() || !description.trim() || !price || !image.trim()) {
       alert("Заполните поля!");
       return;
     }
@@ -52,6 +47,7 @@ const EditProductForm = () => {
       setDescription(oneProduct.description);
     }
   }, [oneProduct]);
+  console.log(oneProduct);
   return oneProduct ? (
     <Container maxWidth="sm">
       <Breadcrumbs aria-label="breadcrumb">
@@ -89,8 +85,9 @@ const EditProductForm = () => {
           style={{ margin: "10px" }}
         />
         <TextField
+          type="number"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(e) => setPrice(+e.target.value)}
           id="standard-basic"
           label="Price"
           variant="standard"

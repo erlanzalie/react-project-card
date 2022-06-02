@@ -1,5 +1,6 @@
 import React, { useReducer } from "react";
 import axios from "axios";
+import { toContainHTML } from "@testing-library/jest-dom/dist/matchers";
 
 export const productContext = React.createContext();
 
@@ -7,13 +8,18 @@ const API = "http://localhost:8000/products";
 
 const INIT_STATE = {
   products: [],
-  oneProduct: [],
+  oneProduct: null,
+  pages: 0,
 };
 
 function reducer(state = INIT_STATE, action) {
   switch (action.type) {
     case "GET_PRODUCTS":
-      return { ...state, products: action.payload };
+      return {
+        ...state,
+        products: action.payload.data,
+        pages: Math.ceil(action.payload.headers[`x-total-count`] / 3),
+      };
     case "GET_ONE_PRODUCT":
       return { ...state, oneProduct: action.payload };
     default:
@@ -29,13 +35,16 @@ const ProductsContextProvider = ({ children }) => {
   }
 
   async function getProducts() {
-    let res = await axios(API);
+    // console.log(`${API}${window.location.search}`);
+    let res = await axios(`${API}${window.location.search}`);
+    // console.log(res);
     // console.log(res);
     dispatch({
       type: "GET_PRODUCTS",
-      payload: res.data,
+      payload: res,
     });
   }
+  // console.log(state.pages);
 
   async function deleteProduct(id) {
     await axios.delete(`${API}/${id}`);
@@ -60,6 +69,7 @@ const ProductsContextProvider = ({ children }) => {
       value={{
         products: state.products,
         oneProduct: state.oneProduct,
+        pages: state.pages,
         createProduct,
         getProducts,
         deleteProduct,

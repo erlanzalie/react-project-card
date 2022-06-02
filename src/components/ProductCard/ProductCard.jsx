@@ -34,6 +34,9 @@ const ProductCard = ({ item }) => {
             ? `${item.description.slice(0, 20)}...`
             : item.description}
         </Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {item.price}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => deleteProduct(item.id)}>
