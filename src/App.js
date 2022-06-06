@@ -6,14 +6,17 @@ import Routing from "./Routing";
 
 import "./App.css";
 import ProductsContextProvider from "./contexts/productContext";
+import AuthContextProvider from "./contexts/authContext";
 
 const App = () => {
   return (
-    <ProductsContextProvider>
-      <Header />
-      <Routing />
-      <Footer />
-    </ProductsContextProvider>
+    <AuthContextProvider>
+      <ProductsContextProvider>
+        <Header />
+        <Routing />
+        <Footer />
+      </ProductsContextProvider>
+    </AuthContextProvider>
   );
 };
 

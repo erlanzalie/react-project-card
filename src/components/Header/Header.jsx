@@ -13,8 +13,13 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import { authContext } from "../../contexts/authContext";
+import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export default function PrimarySearchAppBar() {
+  const { currentUser, logOut } = React.useContext(authContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -55,8 +60,30 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {currentUser ? (
+        <MenuItem onClick={handleMenuClose}>{currentUser.email}</MenuItem>
+      ) : null}
+
+      {currentUser ? (
+        <MenuItem
+          onClick={() => {
+            handleMenuClose();
+            logOut();
+          }}
+        >
+          Log out
+        </MenuItem>
+      ) : (
+        <Link href="/login">
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+            }}
+          >
+            Log in
+          </MenuItem>
+        </Link>
+      )}
     </Menu>
   );
 
@@ -138,20 +165,11 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                <AddShoppingCartIcon />
               </Badge>
             </IconButton>
             <IconButton

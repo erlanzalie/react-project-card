@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { Alert, Box, Button, TextField, Typography } from "@mui/material";
+import { authContext } from "../../contexts/authContext";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const { signUp, error } = useContext(authContext);
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   function handleValues() {
-    let user = {
-      email,
-      password,
-    };
-    console.log(user);
+    if (!email || !password) {
+      alert("Заполните поля");
+      return;
+    }
+    signUp(email, password, navigate);
   }
   return (
     <Box
@@ -22,6 +26,8 @@ const RegisterForm = () => {
       <Typography variant="h3" component="h2">
         Register
       </Typography>
+      {error ? <Alert severity="error">{error}</Alert> : null}
+
       <TextField
         value={email}
         onChange={(e) => setEmail(e.target.value)}
