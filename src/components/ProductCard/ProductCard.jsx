@@ -6,17 +6,20 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useNavigate } from "react-router-dom";
 import { productContext } from "../../contexts/productContext";
+import { cartContext } from "../../contexts/cartContext";
 
 const ProductCard = ({ item }) => {
   const navigate = useNavigate();
   const { deleteProduct } = useContext(productContext);
+  const { addProductToCart, checkProductInCart } = useContext(cartContext);
+  const [checkProduct, setCheckProduct] = useState(checkProductInCart(item));
   return (
     <Card sx={{ maxWidth: 300, margin: "10px" }}>
       <CardMedia
@@ -45,8 +48,14 @@ const ProductCard = ({ item }) => {
         <Button size="small" onClick={() => navigate(`/edit/${item.id}`)}>
           <EditIcon />
         </Button>
-        <Button size="small">
-          <ShoppingCartIcon />
+        <Button
+          onClick={() => {
+            addProductToCart(item);
+            setCheckProduct(checkProductInCart(item));
+          }}
+          size="small"
+        >
+          <ShoppingCartIcon color={checkProduct ? "secondary" : "primary"} />
         </Button>
         <Button size="small" onClick={() => navigate(`/products/${item.id}`)}>
           <MoreHorizIcon />

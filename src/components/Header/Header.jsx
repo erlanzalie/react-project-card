@@ -158,7 +158,7 @@ export default function PrimarySearchAppBar() {
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            MUI
+            SHOP
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />

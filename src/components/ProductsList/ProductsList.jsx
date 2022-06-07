@@ -31,7 +31,7 @@ const ProductsList = () => {
     getProducts();
   }, [searchParams]);
 
-  console.log(price);
+  // console.log(price);
 
   // console.log(searchParams.get("q"));
   // console.log(window.location.search);
