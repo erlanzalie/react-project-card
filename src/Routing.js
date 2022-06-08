@@ -10,17 +10,15 @@ import RegisterForm from "./components/RegisterForm/RegisterForm";
 
 const Routing = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/add-product" element={<AddProductForm />} />
-        <Route path="/products" element={<ProductsList />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/edit/:id" element={<EditProductForm />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/register" element={<RegisterForm />} />
+      <Route path="/add-product" element={<AddProductForm />} />
+      <Route path="/products" element={<ProductsList />} />
+      <Route path="/products/:id" element={<ProductDetails />} />
+      <Route path="/edit/:id" element={<EditProductForm />} />
+      <Route path="/cart" element={<Cart />} />
+    </Routes>
   );
 };
 
