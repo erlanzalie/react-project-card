@@ -31,7 +31,7 @@ const RegisterForm = () => {
       <TextField
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         id="outlined-basic"
         label="Email"
         variant="outlined"
@@ -39,18 +39,30 @@ const RegisterForm = () => {
       <TextField
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         id="outlined-basic"
         label="Password"
         variant="outlined"
       />
       <Button
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         variant="contained"
         onClick={handleValues}
       >
         Register
       </Button>
+      <Typography variant="p" component="h2">
+        Already have an account?
+      </Typography>
+      <Typography
+        onClick={() => navigate("/login")}
+        variant="p"
+        color={"primary"}
+        style={{ cursor: "pointer" }}
+        component="h2"
+      >
+        Log in
+      </Typography>
     </Box>
   );
 };

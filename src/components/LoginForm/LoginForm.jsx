@@ -30,7 +30,7 @@ const LoginForm = () => {
       <TextField
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         id="outlined-basic"
         label="Email"
         variant="outlined"
@@ -38,18 +38,30 @@ const LoginForm = () => {
       <TextField
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         id="outlined-basic"
         label="Password"
         variant="outlined"
       />
       <Button
-        style={{ width: "20%", margin: "10px" }}
+        style={{ width: "30%", margin: "10px" }}
         variant="contained"
         onClick={handleValues}
       >
         Login
       </Button>
+      <Typography variant="p" component="h2">
+        Don't have an account?
+      </Typography>
+      <Typography
+        onClick={() => navigate("/register")}
+        variant="p"
+        color={"primary"}
+        style={{ cursor: "pointer" }}
+        component="h2"
+      >
+        Sign up
+      </Typography>
     </Box>
   );
 };

@@ -26,6 +26,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     getCart();
   }, []);
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -149,22 +150,29 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography
+            onClick={() => navigate("/")}
             variant="h6"
             noWrap
             component="div"
+            style={{ cursor: "pointer" }}
+            // display={{ xs: "none", sm: "block" }}
             sx={{ display: { xs: "none", sm: "block" } }}
+            marginRight={"30px"}
           >
-            SHOP
+            Home
+          </Typography>
+          <Typography
+            onClick={() => navigate("/products")}
+            variant="h6"
+            noWrap
+            component="div"
+            style={{ cursor: "pointer" }}
+            // display={{ xs: "none", sm: "block" }}
+            sx={{ display: { xs: "none", sm: "block" } }}
+            marginRight={"30px"}
+          >
+            Products
           </Typography>
 
           <Box sx={{ flexGrow: 1 }} />

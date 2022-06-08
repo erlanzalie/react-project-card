@@ -73,12 +73,38 @@ const CartContextProvider = ({ children }) => {
         totalPrice: 0,
       };
     }
+    // cart.totalPrice = cart.products.reduce(
+    //   (prev, curr) => prev.subPrice + curr.subPrice
+    // );
+    cart.totalPrice = cart.products.reduce((prev, curr) => {
+      return prev + curr.subPrice;
+    }, 0);
     dispatch({
       type: "GET_CART",
       payload: cart,
     });
   }
-  //   console.log(state.count);
+  function changeProductCount(count, id) {
+    if (count <= 0) {
+      count = 1;
+    }
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.products = cart.products.map((item) => {
+      if (item.item.id === id) {
+        item.count = count;
+        item.subPrice = item.count * item.item.price;
+      }
+      return item;
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    getCart();
+  }
+  function deleteFromCart(id) {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart.products = cart.products.filter((item) => item.item.id !== id);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    getCart();
+  }
   return (
     <cartContext.Provider
       value={{
@@ -87,6 +113,8 @@ const CartContextProvider = ({ children }) => {
         addProductToCart,
         checkProductInCart,
         getCart,
+        changeProductCount,
+        deleteFromCart,
       }}
     >
       {children}
