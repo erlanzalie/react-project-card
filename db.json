@@ -20,20 +20,6 @@
       "price": 1234,
       "image": "https://a.d-cd.net/DQAAAgEUIuA-960.jpg",
       "id": 4
-    },
-    {
-      "title": "asdas",
-      "description": "asdas",
-      "price": 123123,
-      "image": "https://images.news18.com/ibnlive/uploads/2021/05/1620208008_apple_iphone13_pro_max_design_youtube.jpg?im=Resize,width=360,aspect=fit,type=normal?im=Resize,width=320,aspect=fit,type=normal",
-      "id": 5
-    },
-    {
-      "title": "sasd",
-      "description": "asd",
-      "price": 12312,
-      "image": "https://www.giantfreakinrobot.com/wp-content/uploads/2020/12/tom-holland-spider-man-900x506.jpg",
-      "id": 7
     }
   ]
 }

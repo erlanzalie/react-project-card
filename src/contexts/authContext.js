@@ -6,6 +6,7 @@ export const authContext = React.createContext();
 const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState("");
   const [error, setError] = useState("");
+  const [isAdmin, setAdmin] = useState(false);
   function signUp(email, password, navigate) {
     fire
       .auth()
@@ -26,17 +27,23 @@ const AuthContextProvider = ({ children }) => {
   function authListener() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
+        // login: admin@gmail.com password: makersjs9
+        if (user.email === "admin@gmail.com") {
+          setAdmin(true);
+        }
         setCurrentUser(user);
       } else {
         setCurrentUser("");
+        setAdmin(false);
       }
     });
   }
   useEffect(authListener, []);
-
   //   console.log(currentUser);
   return (
-    <authContext.Provider value={{ currentUser, error, signUp, login, logOut }}>
+    <authContext.Provider
+      value={{ currentUser, error, isAdmin, signUp, login, logOut }}
+    >
       {children}
     </authContext.Provider>
   );

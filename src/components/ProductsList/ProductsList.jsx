@@ -2,12 +2,14 @@ import { Box, Button, Container, Pagination } from "@mui/material";
 import { display } from "@mui/system";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { authContext } from "../../contexts/authContext";
 import { productContext } from "../../contexts/productContext";
 import Filters from "../Filters/Filters";
 import ProductCard from "../ProductCard/ProductCard";
 
 const ProductsList = () => {
   const { getProducts, products, pages } = useContext(productContext);
+  const { isAdmin } = useContext(authContext);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(
@@ -37,13 +39,16 @@ const ProductsList = () => {
   // console.log(window.location.search);
   return (
     <Container>
-      <Button
-        variant="outlined"
-        style={{ marginTop: "30px", marginBottom: "30px" }}
-        onClick={() => navigate("/add-product")}
-      >
-        Add Product
-      </Button>
+      {isAdmin ? (
+        <Button
+          variant="outlined"
+          style={{ marginTop: "30px", marginBottom: "30px" }}
+          onClick={() => navigate("/add-product")}
+        >
+          Add Product
+        </Button>
+      ) : null}
+
       <Filters
         search={search}
         setSearch={setSearch}
@@ -63,7 +68,7 @@ const ProductsList = () => {
       <Box display={"flex"} justifyContent={"center"} marginTop={"20px"}>
         <Pagination
           page={page}
-          count={pages}
+          count={isNaN(pages) ? 0 : pages}
           color="primary"
           onChange={(e, value) => setPage(value)}
         />
